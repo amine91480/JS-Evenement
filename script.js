@@ -38,7 +38,7 @@ buttonSecondaryCard[0].addEventListener('click',function(){
   let textCard = document.getElementsByClassName('card-text');
   textCard[0].style.color =  'red' ;
   //console.log(buttonSecondaryCard[0]);
-  //console.log(textCard[0]);
+  console.log(textCard[0]);
 })
 
 /* Exo 4
@@ -54,7 +54,7 @@ buttonSecondaryCard2[1].addEventListener('click',function(){
     textCard[1].style.color = 'black';
   }
   //console.log(buttonSecondaryCard2[1]);
-  //console.log(textCard[1].style);
+  console.log(textCard[1]);
 })
 
 /* Exo 5
@@ -76,16 +76,27 @@ navBarAttribut[0].addEventListener('dblclick',function(){
 /* Exo 6 -> Ne fonctionne pas !
 T'as déjà implémenté 5 fonctionnalités d'interaction ! C'est top ! On va commencer à corser les choses.
 La fonctionnalité sera la suivante : si un utilisateur passe sa souris sur le bouton "View" d'une card (n'importe laquelle), celle-ci va se réduire. Cela veut dire que le texte disparaît, l'image n'apparaîtra qu'à 20 % de sa taille d'origine et les boutons "Edit" / "View" restent visibles. Cette fonction sera réversible : s'il repasse sa souris, la card redevient normale !
+*/
 
+let card = document.getElementsByClassName('col-md-4')
+let views = document.getElementsByClassName('btn btn-sm btn-success')
 
-let allButtonSecondaryCard = document.getElementsByClassName('btn btn-sm btn-outline-secondary');
-for (i = 0; i < allButtonSecondaryCard.length; i++) {
-  allButtonSecondaryCard[i].addEventListener('mouseover',function() {
-    //let allCardText = allButtonSecondaryCard.
-    //console.log(allButtonSecondaryCard[i]);
-  console.log(allButtonSecondaryCard[i]);
-  })
-} */
+for (let count = 0; count < views.length; count++) {
+  views[count].addEventListener('mouseover', onView)
+  function onView () {
+    let text = card[count].getElementsByClassName('card-text')[0]
+    let image = card[count].getElementsByClassName('card-img-top')[0]
+    console.log((image.style.width).localeCompare("20%") !== 0);
+    if ((image.style.width).localeCompare("20%") !== 0) {
+      text.classList.add('collapse')
+      image.style.width = "20%"
+    } else if (image.style.width == "20%" || text.classList == 'collapse') {
+      text.classList.remove('collapse')
+      image.style.width = "100%"
+    }
+  }
+}
+
 
 /* Exo 7
 Allez on va rajouter un peu de WTF dans la page : si un utilisateur clique sur le bouton gris ==>, la dernière card (en bas à droite) va passer en premier (en haut à gauche). On va pouvoir faire tourner les cards !
@@ -102,11 +113,9 @@ function changePosition() {
   console.log(allCard[0]);
   row.insertAdjacentElement('afterbegin',allCard[5]);
 }
-
 /* Exo 8
 Évidemment tu t'y attendais : on va faire tourner les card dans l'autre sens aussi. Donc si un utilisateur clique sur le bouton bleu <==, la première card devra passer en dernier. À première vue, tu te dis que si tu as réussi à faire la fonctionnalité précédente, celle-ci c'est du gateau... sauf qu'il y a quelques pièges. 😈
- */
-// Suppresion du lien href vers THP pour le remplacer par home "#"
+Suppresion du lien href vers THP pour le remplacer par home "#" */
 let changeLink = document.getElementsByClassName('btn btn-primary my-2')
 changeLink[0].href = "#";
 
@@ -117,4 +126,11 @@ function changePositionInverse() {
   row.insertAdjacentElement('beforeend',allCard[0]);
 }
 
+/* EXO 9
+La fonctionnalité se déclenchera si le logo de la page (JS & Events) est sélectionné et qu'on appuie sur une touche spécifique du clavier.
+Si l'utilisateur presse la touche "a", l'ensemble de la page va être condensé sur 4 colonnes Bootstrap à gauche de l'écran.
+Si l'utilisateur presse la touche "y", l'ensemble de la page va être condensé sur 4 colonnes Bootstrap au milieu de l'écran.
+Si l'utilisateur presse la touche "p", l'ensemble de la page va être condensé sur 4 colonnes Bootstrap à droite de l'écran.
+Si l'utilisateur presse la touche "b", tout redevient normal.
+ */
 
