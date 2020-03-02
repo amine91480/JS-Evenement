@@ -4,12 +4,11 @@ Cette fonctionnalité doit être codée avec un addEventListener("click", functi
 */
 let footerAttribut = document.getElementsByTagName('footer');
 
-footerAttribut[0].onclick = eventFooter;
-
+footerAttribut[0].addEventListener('click',eventFooter)
+let i = 0;
 function eventFooter() {
-  let i = 0;
   console.log(`Click n'${i}`);
-  i = i + 1
+  i++;
 }
 //console.log(footerAttribut);
 
@@ -73,7 +72,49 @@ navBarAttribut[0].addEventListener('dblclick',function(){
   //console.log(link);
   //console.log(navBarAttribut);
 })
-/* Exo 6
+
+/* Exo 6 -> Ne fonctionne pas !
 T'as déjà implémenté 5 fonctionnalités d'interaction ! C'est top ! On va commencer à corser les choses.
 La fonctionnalité sera la suivante : si un utilisateur passe sa souris sur le bouton "View" d'une card (n'importe laquelle), celle-ci va se réduire. Cela veut dire que le texte disparaît, l'image n'apparaîtra qu'à 20 % de sa taille d'origine et les boutons "Edit" / "View" restent visibles. Cette fonction sera réversible : s'il repasse sa souris, la card redevient normale !
-* */
+
+
+let allButtonSecondaryCard = document.getElementsByClassName('btn btn-sm btn-outline-secondary');
+for (i = 0; i < allButtonSecondaryCard.length; i++) {
+  allButtonSecondaryCard[i].addEventListener('mouseover',function() {
+    //let allCardText = allButtonSecondaryCard.
+    //console.log(allButtonSecondaryCard[i]);
+  console.log(allButtonSecondaryCard[i]);
+  })
+} */
+
+/* Exo 7
+Allez on va rajouter un peu de WTF dans la page : si un utilisateur clique sur le bouton gris ==>, la dernière card (en bas à droite) va passer en premier (en haut à gauche). On va pouvoir faire tourner les cards !
+Indice : Cette fonctionnalité n'est pas ultra complexe en fait : il faut pointer sur le noeud-parent des 6 cards puis déplacer la card n°6 en premier avec un insertBefore.
+Petite remarque : tu vas réaliser que si tu mélanges les cards, il est fort probable que la fonctionnalité 6 va se mettre à faire n'importe quoi. Si tu survoles un bouton "View", c'est une autre card qui va se réduire. Si tu arrives à corriger ça, c'est cool mais la consigne est d'ignorer ce souci pour le moment.
+ */
+
+let buttonChangePosition = document.getElementsByClassName('btn btn-secondary my-2')
+buttonChangePosition[0].addEventListener('click', changePosition)
+function changePosition() {
+  let allCard = document.getElementsByClassName('col-md-4');
+  let row = allCard[0].parentNode;
+  
+  console.log(allCard[0]);
+  row.insertAdjacentElement('afterbegin',allCard[5]);
+}
+
+/* Exo 8
+Évidemment tu t'y attendais : on va faire tourner les card dans l'autre sens aussi. Donc si un utilisateur clique sur le bouton bleu <==, la première card devra passer en dernier. À première vue, tu te dis que si tu as réussi à faire la fonctionnalité précédente, celle-ci c'est du gateau... sauf qu'il y a quelques pièges. 😈
+ */
+// Suppresion du lien href vers THP pour le remplacer par home "#"
+let changeLink = document.getElementsByClassName('btn btn-primary my-2')
+changeLink[0].href = "#";
+
+changeLink[0].addEventListener('click', changePositionInverse)
+function changePositionInverse() {
+  let allCard = document.getElementsByClassName('col-md-4');
+  let row = allCard[0].parentNode;
+  row.insertAdjacentElement('beforeend',allCard[0]);
+}
+
+
