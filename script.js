@@ -47,9 +47,33 @@ Fonctionnalité 4 :
 On va faire quelque chose de similaire à la fonctionnalité 3 mais un peu plus complexe : si on clique sur le bouton "Edit" de la deuxième card, le texte de la card va se mettre en vert. Si on re-clique dessus, il redevient comme avant ! Tu l'as compris, il va falloir que tu cherches comment faire un "toggle" sur le style du texte. C'est plus compliqué que sur une classe.
  */
 let buttonSecondaryCard2 = document.getElementsByClassName('btn btn-sm btn-outline-secondary');
-let textCard = document.getElementsByClassName('card-text');
 buttonSecondaryCard2[1].addEventListener('click',function(){
-
+  let textCard = document.getElementsByClassName('card-text');
+  if (textCard[1].style.color == '' || textCard[1].style.color == "black") {
+    textCard[1].style.color = 'green';
+  }else if (textCard[1].style.color == 'green') {
+    textCard[1].style.color = 'black';
+  }
+  //console.log(buttonSecondaryCard2[1]);
+  //console.log(textCard[1].style);
 })
-console.log(buttonSecondaryCard2[1]);
-console.log(textCard[1]);
+
+/* Exo 5
+Pour le fun, on va implémenter une fonctionnalité à la sauce ☢"nucléaire"🤯. Et comme elle est un peu dangereuse, on va la cacher… Voici comment elle doit marcher : si un utilisateur double clique sur la navbar en haut, tout Bootstrap disparaît et la page s'affiche comme si on avait oublié de mettre le CDN qui la relie au fichier CSS. Si possible, rends cette fonctionnalité réversible (un nouveau double-clic fait tout revenir à la normale).
+ */
+let navBarAttribut = document.getElementsByTagName('header');
+let link = document.querySelector('head > link');
+let parentLink = link.parentElement;
+navBarAttribut[0].addEventListener('dblclick',function(){
+  if (parentLink.children.length == 2) {
+    link.parentElement.removeChild(link); }
+  else if (parentLink.children.length == 1) {
+    parentLink.appendChild(link);
+  }
+  //console.log(link);
+  //console.log(navBarAttribut);
+})
+/* Exo 6
+T'as déjà implémenté 5 fonctionnalités d'interaction ! C'est top ! On va commencer à corser les choses.
+La fonctionnalité sera la suivante : si un utilisateur passe sa souris sur le bouton "View" d'une card (n'importe laquelle), celle-ci va se réduire. Cela veut dire que le texte disparaît, l'image n'apparaîtra qu'à 20 % de sa taille d'origine et les boutons "Edit" / "View" restent visibles. Cette fonction sera réversible : s'il repasse sa souris, la card redevient normale !
+* */
